@@ -1,8 +1,10 @@
 #ifndef OPERAND_STACK_H
 #define OPERAND_STACK_H
 
+#include "operand.h"
+
 typedef struct s_operand_stack {
-    int* top;
+    Operand* top;
 
     void (*push)(struct s_operand_stack* self, int operand);
     int (*pop)(struct s_operand_stack* self);
