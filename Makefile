@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS += -Wall -Wextra -Wpedantic -Werror -g3
 SANITIZE = -fsanitize=address
 LINKERFLAG = -lm
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard *.c) $(wildcard */*.c)
 OBJS = $(SRCS:.c=.o)
 MAIN = my_bc
 

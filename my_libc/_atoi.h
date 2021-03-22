@@ -1,6 +1,6 @@
 #ifndef ATOI_H
 #define ATOI_H
 
-int atoi (char* str);
+int _atoi (char* str);
 
 #endif

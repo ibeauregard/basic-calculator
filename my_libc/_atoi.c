@@ -1,15 +1,13 @@
-#include "my_atoi.h"
+#include "_atoi.h"
 #include "_string.h"
-#include <stdio.h>
 
 static int atoi_rec(char* str);
 
-int atoi (char* str)
+int _atoi (char* str)
 {
     if (str[0] == '-') {
         return -atoi_rec(&str[1]);
     }
-    puts("Hi!");
     return atoi_rec(str);
 }
 
