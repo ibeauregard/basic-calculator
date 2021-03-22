@@ -1,9 +1,8 @@
 #include "rpn_eval.h"
 #include "operand_stack.h"
 #include "my_libc/_atoi.h"
-#include <stdio.h>
 
-void rpn_eval(TokenArray* tokens)
+int rpn_eval(TokenArray* tokens)
 {
     OperandStack* operands = new_operand_stack();
     int left, right;
@@ -16,6 +15,7 @@ void rpn_eval(TokenArray* tokens)
             operands->push(operands, _atoi(tokens->array[i]->value));
         }
     }
-    printf("%d\n", operands->pop(operands));
+    int result = operands->pop(operands);
     operands->delete(operands);
+    return result;
 }

@@ -3,6 +3,6 @@
 
 #include "token_array.h"
 
-void rpn_eval(TokenArray* tokens);
+int rpn_eval(TokenArray* tokens);
 
 #endif
