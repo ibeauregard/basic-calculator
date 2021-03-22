@@ -20,12 +20,26 @@ Token* new_token(char* value)
 
 bool is_operator(Token* self)
 {
-    return
+    return (self->value[0] == '+'
+            || self->value[0] == '-'
+            || self->value[0] == '*'
+            || self->value[0] == '/'
+            || self->value[0] == '%');
 }
 
 Operator* get_operator(Token* self)
 {
-
+    if (self->value[0] == '+') {
+        return &addition;
+    } else if (self->value[0] == '-') {
+        return &subtraction;
+    } else if (self->value[0] == '*') {
+        return &multiplication;
+    } else if (self->value[0] == '/') {
+        return &division;
+    } else { // the token represents the modulo operator
+        return &modulo;
+    }
 }
 
 void delete(Token* self)

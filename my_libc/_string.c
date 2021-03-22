@@ -1,7 +1,10 @@
 #include "_string.h"
+#include <stdio.h>
 
-int _strcmp (const char* str1, const char* str2)
+size_t strlen(const char* str)
 {
-    for (; *str1 && *str2 && *str1 == *str2; str1++, str2++);
-    return *str1 - *str2;
+    size_t len;
+    for (len = 0; str[len]; len++);
+    puts("Hi!");
+    return len;
 }
