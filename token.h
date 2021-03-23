@@ -7,6 +7,7 @@
 
 typedef struct s_token {
     char* value;
+    struct s_token* next;
 
     bool (*isOperator)(struct s_token* self);
     int (*applyAsOperator)(struct s_token* self, OperandStack* operands);

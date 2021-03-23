@@ -2,15 +2,15 @@
 #include "operand/operand_stack.h"
 #include "my_libc/_atoi.h"
 
-int rpn_eval(TokenArray* tokens)
+int rpn_eval(TokenQueue* tokens)
 {
     OperandStack* operands = new_operand_stack();
     int result;
-    for (size_t i = 0; i < tokens->size; i++) {
-        if (tokens->array[i]->isOperator(tokens->array[i])) {
-            result = tokens->array[i]->applyAsOperator(tokens->array[i], operands);
+    for (Token* token = tokens->head; token; token = token->next) {
+        if (token->isOperator(token)) {
+            result = token->applyAsOperator(token, operands);
         } else {
-            result = _atoi(tokens->array[i]->value);
+            result = _atoi(token->value);
         }
         operands->push(operands, result);
     }

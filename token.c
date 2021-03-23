@@ -14,6 +14,7 @@ Token* new_token(char* value)
     char* _value = malloc(_strlen(value) + 1);
     _strcpy(_value, value);
     self->value = _value;
+    self->next = NULL;
 
     self->isOperator = &is_operator;
     self->applyAsOperator = &apply_as_operator;
