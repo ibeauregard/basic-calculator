@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 typedef struct s_unary_operator {
-    char symbol;
+    char sign;
     unsigned char precedence;
     UnaryOperatorFunction* func;
     bool isUnary;

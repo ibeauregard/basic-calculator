@@ -1,13 +1,14 @@
 #include "operator.h"
 #include "binary_operator.h"
 #include "unary_operator.h"
+#include "signs.h"
 #include <stddef.h>
 
 static int apply_unary_operator(UnaryOperator* operator, int operand);
 static int apply_binary_operator(BinaryOperator* operator, int left, int right);
 
 static BinaryOperator addition = {
-        .symbol = '+',
+        .sign = ADD_SIGN,
         .precedence = 1,
         .func = &addition_func,
         .isUnary = false,
@@ -15,7 +16,7 @@ static BinaryOperator addition = {
 };
 
 static BinaryOperator subtraction = {
-        .symbol = '-',
+        .sign = MINUS_SIGN,
         .precedence = 1,
         .func = &subtraction_func,
         .isUnary = false,
@@ -23,7 +24,7 @@ static BinaryOperator subtraction = {
 };
 
 static BinaryOperator multiplication = {
-        .symbol = '*',
+        .sign = MUL_SIGN,
         .precedence = 2,
         .func = &multiplication_func,
         .isUnary = false,
@@ -31,7 +32,7 @@ static BinaryOperator multiplication = {
 };
 
 static BinaryOperator division = {
-        .symbol = '/',
+        .sign = DIV_SIGN,
         .precedence = 2,
         .func = &division_func,
         .isUnary = false,
@@ -39,7 +40,7 @@ static BinaryOperator division = {
 };
 
 static BinaryOperator modulo = {
-        .symbol = '%',
+        .sign = MOD_SIGN,
         .precedence = 2,
         .func = &modulo_func,
         .isUnary = false,
@@ -47,7 +48,7 @@ static BinaryOperator modulo = {
 };
 
 static UnaryOperator minus = {
-        .symbol = '&',
+        .sign = MINUS_SIGN,
         .precedence = 3,
         .func = &minus_func,
         .isUnary = true,
@@ -67,16 +68,16 @@ static Operator* operators[11] = {(Operator*) &modulo, // ascii 37
                                   (Operator*) &division // ascii 47
 };
 
-static unsigned char get_operator_index(char symbol);
+static unsigned char get_operator_index(char sign);
 
-Operator* get_operator_from_symbol(char symbol)
+Operator* get_operator_from_sign(char sign)
 {
-    return operators[get_operator_index(symbol)];
+    return operators[get_operator_index(sign)];
 }
 
-inline unsigned char get_operator_index(char symbol)
+inline unsigned char get_operator_index(char sign)
 {
-    return symbol - '%';
+    return sign - MOD_SIGN;
 }
 
 int apply_unary_operator(UnaryOperator* operator, int operand)

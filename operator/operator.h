@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 typedef struct s_operator {
-    char symbol;
+    char sign;
     unsigned char precedence;
     void* func;
     bool isUnary;
@@ -12,6 +12,6 @@ typedef struct s_operator {
     void* apply;
 } Operator;
 
-Operator* get_operator_from_symbol(char symbol);
+Operator* get_operator_from_sign(char sign);
 
 #endif

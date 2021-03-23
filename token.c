@@ -30,7 +30,7 @@ bool is_operator(Token* self)
 
 int apply_as_operator(Token* self, OperandStack* operands)
 {
-    Operator* operator = get_operator_from_symbol(self->value[0]);
+    Operator* operator = get_operator_from_sign(self->value[0]);
     if (operator->isUnary) {
         UnaryOperator* unary_operator = (UnaryOperator*) operator;
         return unary_operator->apply(unary_operator, operands->pop(operands));
