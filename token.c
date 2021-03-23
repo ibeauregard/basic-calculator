@@ -1,6 +1,7 @@
 #include "token.h"
 #include "operator/unary_operator.h"
 #include "operator/binary_operator.h"
+#include "my_libc/_string.h"
 #include <stdlib.h>
 
 static bool is_operator(Token* self);
@@ -10,7 +11,9 @@ static void delete(Token* self);
 Token* new_token(char* value)
 {
     Token* self = malloc(sizeof (Token));
-    self->value = value;
+    char* _value = malloc(_strlen(value) + 1);
+    _strcpy(_value, value);
+    self->value = _value;
 
     self->isOperator = &is_operator;
     self->applyAsOperator = &apply_as_operator;
