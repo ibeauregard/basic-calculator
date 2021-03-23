@@ -7,65 +7,65 @@
 static int apply_unary_operator(UnaryOperator* operator, int operand);
 static int apply_binary_operator(BinaryOperator* operator, int left, int right);
 
-static BinaryOperator addition = {
+static Operator addition = {
         .sign = ADD_SIGN,
         .precedence = 1,
-        .func = &addition_func,
+        .func = (void*) &addition_func,
         .isUnary = false,
-        .apply = &apply_binary_operator
+        .apply = (void*) &apply_binary_operator
 };
 
-static BinaryOperator subtraction = {
+static Operator subtraction = {
         .sign = MINUS_SIGN,
         .precedence = 1,
-        .func = &subtraction_func,
+        .func = (void*) &subtraction_func,
         .isUnary = false,
-        .apply = &apply_binary_operator
+        .apply = (void*) &apply_binary_operator
 };
 
-static BinaryOperator multiplication = {
+static Operator multiplication = {
         .sign = MUL_SIGN,
         .precedence = 2,
-        .func = &multiplication_func,
+        .func = (void*) &multiplication_func,
         .isUnary = false,
-        .apply = &apply_binary_operator
+        .apply = (void*) &apply_binary_operator
 };
 
-static BinaryOperator division = {
+static Operator division = {
         .sign = DIV_SIGN,
         .precedence = 2,
-        .func = &division_func,
+        .func = (void*) &division_func,
         .isUnary = false,
-        .apply = &apply_binary_operator
+        .apply = (void*) &apply_binary_operator
 };
 
-static BinaryOperator modulo = {
+static Operator modulo = {
         .sign = MOD_SIGN,
         .precedence = 2,
-        .func = &modulo_func,
+        .func = (void*) &modulo_func,
         .isUnary = false,
-        .apply = &apply_binary_operator
+        .apply = (void*) &apply_binary_operator
 };
 
-static UnaryOperator minus = {
+static Operator minus = {
         .sign = MINUS_SIGN,
         .precedence = 3,
-        .func = &minus_func,
+        .func = (void*) &minus_func,
         .isUnary = true,
-        .apply = &apply_unary_operator
+        .apply = (void*) &apply_unary_operator
 };
 
-static Operator* operators[11] = {(Operator*) &modulo, // ascii 37
-                                  (Operator*) &minus, // ascii 38
+static Operator* operators[] = {&modulo, // ascii 37
+                                  &minus, // ascii 38
                                   NULL, // ...
                                   NULL,
                                   NULL,
-                                  (Operator*) &multiplication,
-                                  (Operator*) &addition,
+                                  &multiplication,
+                                  &addition,
                                   NULL,
-                                  (Operator*) &subtraction,
+                                  &subtraction,
                                   NULL,
-                                  (Operator*) &division // ascii 47
+                                  &division // ascii 47
 };
 
 static unsigned char get_operator_index(char sign);
