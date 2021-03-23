@@ -1,12 +1,18 @@
 #ifndef TOKEN_QUEUE_H
 #define TOKEN_QUEUE_H
 
-#include "token.h"
+#include "token_node.h"
 #include <stddef.h>
 
 typedef struct s_token_queue {
-    Token* head;
-    Token* tail;
+    TokenNode* head;
+    TokenNode* tail;
+
+    void (*enqueue)(struct s_token_queue* self, Token* token);
+    Token* (*dequeue)(struct s_token_queue* self);
+    void (*delete)(struct s_token_queue* self);
 } TokenQueue;
+
+TokenQueue* new_token_queue();
 
 #endif

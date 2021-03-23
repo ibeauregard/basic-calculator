@@ -6,13 +6,16 @@ int rpn_eval(TokenQueue* tokens)
 {
     OperandStack* operands = new_operand_stack();
     int result;
-    for (Token* token = tokens->head; token; token = token->next) {
+    Token* next;
+    for (Token* token = tokens->dequeue(tokens); token; token = next) {
+        next = tokens->dequeue(tokens);
         if (token->isOperator(token)) {
             result = token->applyAsOperator(token, operands);
         } else {
             result = _atoi(token->value);
         }
         operands->push(operands, result);
+        token->delete(token);
     }
     result = operands->pop(operands);
     operands->delete(operands);
