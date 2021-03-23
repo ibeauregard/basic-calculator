@@ -18,7 +18,7 @@ OperandStack* new_operand_stack()
 
 void push(OperandStack* self, int operand)
 {
-    Operand* operand_node = new_operand_node(operand);
+    Operand* operand_node = new_operand(operand);
     operand_node->next = self->top;
     self->top = operand_node;
 }

@@ -8,6 +8,6 @@ typedef struct s_operand {
     void (*delete)(struct s_operand* self);
 } Operand;
 
-Operand* new_operand_node(int value);
+Operand* new_operand(int value);
 
 #endif

@@ -3,7 +3,7 @@
 
 static void delete(Operand* self);
 
-Operand* new_operand_node(int value)
+Operand* new_operand(int value)
 {
     Operand* self = malloc(sizeof (Operand));
     self->value = value;
