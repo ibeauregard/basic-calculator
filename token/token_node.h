@@ -1,7 +1,7 @@
 #ifndef TOKEN_NODE_H
 #define TOKEN_NODE_H
 
-#include "token.h"
+#include "../token.h"
 
 typedef struct s_token_node {
     Token* token;
