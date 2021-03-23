@@ -8,14 +8,14 @@ int main(int argc, char* argv[])
     if (argc > 1) {
         printf("%s\n", argv[1]);
     }
-    TokenQueue* queue = new_token_queue();
-    queue->enqueue(queue, "39");
-    queue->enqueue(queue, "&");
-    queue->enqueue(queue, "2");
-    queue->enqueue(queue, "-");
+    TokenQueue* tokens = new_token_queue();
+    tokens->enqueue(tokens, "39");
+    tokens->enqueue(tokens, "&");
+    tokens->enqueue(tokens, "2");
+    tokens->enqueue(tokens, "-");
 
-    printf("%d\n", rpn_eval(queue));
+    printf("%d\n", rpn_eval(tokens));
 
-    queue->delete(queue);
+    tokens->delete(tokens);
     return EXIT_SUCCESS;
 }
