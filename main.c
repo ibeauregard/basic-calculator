@@ -1,4 +1,3 @@
-#include "token.h"
 #include "token_queue.h"
 #include "rpn_eval.h"
 #include <stdlib.h>
