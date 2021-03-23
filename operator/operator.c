@@ -7,42 +7,42 @@
 static Operator addition = {
         .sign = ADD_SIGN,
         .precedence = 1,
-        .apply = (void*) &addition_func,
+        .apply = &addition_func,
         .isUnary = false
 };
 
 static Operator subtraction = {
         .sign = MINUS_SIGN,
         .precedence = 1,
-        .apply = (void*) &subtraction_func,
+        .apply = &subtraction_func,
         .isUnary = false
 };
 
 static Operator multiplication = {
         .sign = MUL_SIGN,
         .precedence = 2,
-        .apply = (void*) &multiplication_func,
+        .apply = &multiplication_func,
         .isUnary = false
 };
 
 static Operator division = {
         .sign = DIV_SIGN,
         .precedence = 2,
-        .apply = (void*) &division_func,
+        .apply = &division_func,
         .isUnary = false
 };
 
 static Operator modulo = {
         .sign = MOD_SIGN,
         .precedence = 2,
-        .apply = (void*) &modulo_func,
+        .apply = &modulo_func,
         .isUnary = false
 };
 
 static Operator minus = {
         .sign = MINUS_SIGN,
         .precedence = 3,
-        .apply = (void*) &minus_func,
+        .apply = &minus_func,
         .isUnary = true
 };
 
