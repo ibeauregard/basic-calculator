@@ -1,7 +1,7 @@
 #include "token_queue.h"
 #include <stdlib.h>
 
-static void enqueue(TokenQueue* self, Token* token);
+static void enqueue(TokenQueue* self, char* token);
 static Token* dequeue(TokenQueue* self);
 static void delete(TokenQueue* self);
 
@@ -18,9 +18,9 @@ TokenQueue* new_token_queue()
 
 static bool is_empty(TokenQueue* self);
 
-void enqueue(TokenQueue* self, Token* token)
+void enqueue(TokenQueue* self, char* token)
 {
-    TokenNode* node = new_token_node(token);
+    TokenNode* node = new_token_node(new_token(token));
     if (is_empty(self)) {
         self->head = self->tail = node;
     } else {

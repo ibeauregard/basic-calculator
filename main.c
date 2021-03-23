@@ -10,10 +10,10 @@ int main(int argc, char* argv[])
         printf("%s\n", argv[1]);
     }
     TokenQueue* queue = new_token_queue();
-    queue->enqueue(queue, new_token("39"));
-    queue->enqueue(queue, new_token("&"));
-    queue->enqueue(queue, new_token("2"));
-    queue->enqueue(queue, new_token("-"));
+    queue->enqueue(queue, "39");
+    queue->enqueue(queue, "&");
+    queue->enqueue(queue, "2");
+    queue->enqueue(queue, "-");
 
     printf("%d\n", rpn_eval(queue));
 

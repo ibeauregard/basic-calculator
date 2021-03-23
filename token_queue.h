@@ -8,7 +8,7 @@ typedef struct s_token_queue {
     TokenNode* head;
     TokenNode* tail;
 
-    void (*enqueue)(struct s_token_queue* self, Token* token);
+    void (*enqueue)(struct s_token_queue* self, char* token);
     Token* (*dequeue)(struct s_token_queue* self);
     void (*delete)(struct s_token_queue* self);
 } TokenQueue;
