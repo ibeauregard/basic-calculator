@@ -3,6 +3,6 @@
 
 #include <stddef.h>
 
-size_t strlen(const char* str);
+size_t _strlen(const char* str);
 
 #endif

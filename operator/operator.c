@@ -89,3 +89,13 @@ int apply_binary_operator(BinaryOperator* operator, int left, int right)
 {
     return operator->func(left, right);
 }
+
+bool token_is_operator(char token)
+{
+    return (token == ADD_SIGN
+            || token == SUB_SIGN
+            || token == MUL_SIGN
+            || token == DIV_SIGN
+            || token == MOD_SIGN
+            || token == MINUS_SIGN);
+}

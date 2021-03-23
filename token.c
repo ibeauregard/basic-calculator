@@ -20,12 +20,7 @@ Token* new_token(char* value)
 
 bool is_operator(Token* self)
 {
-    return (self->value[0] == '+'
-            || self->value[0] == '-'
-            || self->value[0] == '*'
-            || self->value[0] == '/'
-            || self->value[0] == '%'
-            || self->value[0] == '&'); // unary minus
+    return token_is_operator(self->value[0]);
 }
 
 int apply_as_operator(Token* self, OperandStack* operands)

@@ -13,7 +13,7 @@ int _atoi (char* str)
 
 int atoi_rec(char* str)
 {
-    unsigned char num_len = strlen(str);
+    unsigned char num_len = _strlen(str);
     if (num_len == 0 || !('0' <= str[num_len - 1] && str[num_len - 1] <= '9')) {
         return 0;
     }
