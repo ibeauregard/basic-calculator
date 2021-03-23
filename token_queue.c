@@ -16,11 +16,12 @@ TokenQueue* new_token_queue()
     return self;
 }
 
+TokenNode* new_token_node(char* token);
 static bool is_empty(TokenQueue* self);
 
 void enqueue(TokenQueue* self, char* token)
 {
-    TokenNode* node = new_token_node(new_token(token));
+    TokenNode* node = new_token_node(token);
     if (is_empty(self)) {
         self->head = self->tail = node;
     } else {

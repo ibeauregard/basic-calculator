@@ -14,6 +14,4 @@ typedef struct s_token {
     void (*delete)(struct s_token* self);
 } Token;
 
-Token* new_token(char* value);
-
 #endif

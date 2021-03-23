@@ -10,6 +10,4 @@ typedef struct s_token_node {
     void (*delete)(struct s_token_node* self);
 } TokenNode;
 
-TokenNode* new_token_node(Token* token);
-
 #endif
