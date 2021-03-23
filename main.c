@@ -9,7 +9,7 @@ int main()
     Token* array[] = {new_token("39"),
                       new_token("&"),
                       new_token("2"),
-                      new_token("*")};
+                      new_token("-")};
 
     TokenArray tokens = {.array = array, .size = 4};
     printf("%d\n", rpn_eval(&tokens));

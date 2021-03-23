@@ -4,55 +4,46 @@
 #include "signs.h"
 #include <stddef.h>
 
-static int apply_unary_operator(UnaryOperator* operator, int operand);
-static int apply_binary_operator(BinaryOperator* operator, int left, int right);
-
 static Operator addition = {
         .sign = ADD_SIGN,
         .precedence = 1,
-        .func = (void*) &addition_func,
-        .isUnary = false,
-        .apply = (void*) &apply_binary_operator
+        .apply = (void*) &addition_func,
+        .isUnary = false
 };
 
 static Operator subtraction = {
         .sign = MINUS_SIGN,
         .precedence = 1,
-        .func = (void*) &subtraction_func,
-        .isUnary = false,
-        .apply = (void*) &apply_binary_operator
+        .apply = (void*) &subtraction_func,
+        .isUnary = false
 };
 
 static Operator multiplication = {
         .sign = MUL_SIGN,
         .precedence = 2,
-        .func = (void*) &multiplication_func,
-        .isUnary = false,
-        .apply = (void*) &apply_binary_operator
+        .apply = (void*) &multiplication_func,
+        .isUnary = false
 };
 
 static Operator division = {
         .sign = DIV_SIGN,
         .precedence = 2,
-        .func = (void*) &division_func,
-        .isUnary = false,
-        .apply = (void*) &apply_binary_operator
+        .apply = (void*) &division_func,
+        .isUnary = false
 };
 
 static Operator modulo = {
         .sign = MOD_SIGN,
         .precedence = 2,
-        .func = (void*) &modulo_func,
-        .isUnary = false,
-        .apply = (void*) &apply_binary_operator
+        .apply = (void*) &modulo_func,
+        .isUnary = false
 };
 
 static Operator minus = {
         .sign = MINUS_SIGN,
         .precedence = 3,
-        .func = (void*) &minus_func,
-        .isUnary = true,
-        .apply = (void*) &apply_unary_operator
+        .apply = (void*) &minus_func,
+        .isUnary = true
 };
 
 static Operator* operators[] = {&modulo, // ascii 37
@@ -78,16 +69,6 @@ Operator* get_operator_from_sign(char sign)
 inline unsigned char get_operator_index(char sign)
 {
     return sign - MOD_SIGN;
-}
-
-int apply_unary_operator(UnaryOperator* operator, int operand)
-{
-    return operator->func(operand);
-}
-
-int apply_binary_operator(BinaryOperator* operator, int left, int right)
-{
-    return operator->func(left, right);
 }
 
 bool token_is_operator(char token)

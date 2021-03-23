@@ -6,10 +6,8 @@
 typedef struct s_operator {
     char sign;
     unsigned char precedence;
-    void* func;
-    bool isUnary;
-
     void* apply;
+    bool isUnary;
 } Operator;
 
 Operator* get_operator_from_sign(char sign);

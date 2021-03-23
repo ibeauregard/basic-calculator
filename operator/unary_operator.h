@@ -7,10 +7,8 @@
 typedef struct s_unary_operator {
     char sign;
     unsigned char precedence;
-    UnaryOperatorFunction* func;
+    UnaryOperatorFunction* apply;
     bool isUnary;
-
-    int (*apply)(struct s_unary_operator* self, int operand);
 } UnaryOperator;
 
 #endif

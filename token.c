@@ -31,12 +31,12 @@ int apply_as_operator(Token* self, OperandStack* operands)
     Operator* operator = get_operator_from_sign(self->value[0]);
     if (operator->isUnary) {
         UnaryOperator* unary_operator = (UnaryOperator*) operator;
-        return unary_operator->apply(unary_operator, operands->pop(operands));
+        return unary_operator->apply(operands->pop(operands));
     } else {
         BinaryOperator* binary_operator = (BinaryOperator*) operator;
         int right = operands->pop(operands);
         int left = operands->pop(operands);
-        return binary_operator->apply(binary_operator, left, right);
+        return binary_operator->apply(left, right);
     }
 }
 

@@ -7,10 +7,8 @@
 typedef struct s_binary_operator {
     char sign;
     unsigned char precedence;
-    BinaryOperatorFunction* func;
+    BinaryOperatorFunction* apply;
     bool isUnary;
-
-    int (*apply)(struct s_binary_operator* self, int left_operand, int right_operand);
 } BinaryOperator;
 
 #endif
