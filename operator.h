@@ -1,12 +1,17 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
-typedef int Operator(int left_operand, int right_operand);
+#include <stdbool.h>
 
-int addition(int left, int right);
-int subtraction(int left, int right);
-int multiplication(int left, int right);
-int division(int left, int right);
-int modulo(int left, int right);
+typedef struct s_operator {
+    char symbol;
+    unsigned char precedence;
+    void* func;
+    bool isUnary;
+
+    void* apply;
+} Operator;
+
+Operator* get_operator_from_symbol(char symbol);
 
 #endif

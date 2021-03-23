@@ -5,17 +5,16 @@
 int rpn_eval(TokenArray* tokens)
 {
     OperandStack* operands = new_operand_stack();
-    int left, right;
+    int result;
     for (size_t i = 0; i < tokens->size; i++) {
         if (tokens->array[i]->isOperator(tokens->array[i])) {
-            right = operands->pop(operands);
-            left = operands->pop(operands);
-            operands->push(operands, tokens->array[i]->getOperator(tokens->array[i])(left, right));
+            result = tokens->array[i]->applyAsOperator(tokens->array[i], operands);
         } else {
-            operands->push(operands, _atoi(tokens->array[i]->value));
+            result = _atoi(tokens->array[i]->value);
         }
+        operands->push(operands, result);
     }
-    int result = operands->pop(operands);
+    result = operands->pop(operands);
     operands->delete(operands);
     return result;
 }

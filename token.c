@@ -1,20 +1,10 @@
 #include "token.h"
+#include "unary_operator.h"
+#include "binary_operator.h"
 #include <stdlib.h>
 
-static Operator* operators[11] = {&modulo, // ascii 37
-                                  NULL, // ascii 38
-                                  NULL, // ...
-                                  NULL,
-                                  NULL,
-                                  &multiplication,
-                                  &addition,
-                                  NULL,
-                                  &subtraction,
-                                  NULL,
-                                  &division}; // ascii 47
-
 static bool is_operator(Token* self);
-static Operator* get_operator(Token* self);
+static int apply_as_operator(Token* self, OperandStack* operands);
 static void delete(Token* self);
 
 Token* new_token(char* value)
@@ -23,11 +13,10 @@ Token* new_token(char* value)
     self->value = value;
 
     self->isOperator = &is_operator;
-    self->getOperator = &get_operator;
+    self->applyAsOperator = &apply_as_operator;
     self->delete  = &delete;
     return self;
 }
-
 
 bool is_operator(Token* self)
 {
@@ -35,19 +24,22 @@ bool is_operator(Token* self)
             || self->value[0] == '-'
             || self->value[0] == '*'
             || self->value[0] == '/'
-            || self->value[0] == '%');
+            || self->value[0] == '%'
+            || self->value[0] == '&'); // unary minus
 }
 
-static int get_operator_index(char symbol);
-
-Operator* get_operator(Token* self)
+int apply_as_operator(Token* self, OperandStack* operands)
 {
-    return operators[get_operator_index(self->value[0])];
-}
-
-inline int get_operator_index(char symbol)
-{
-    return symbol - '%';
+    Operator* operator = get_operator_from_symbol(self->value[0]);
+    if (operator->isUnary) {
+        UnaryOperator* unary_operator = (UnaryOperator*) operator;
+        return unary_operator->apply(unary_operator, operands->pop(operands));
+    } else {
+        BinaryOperator* binary_operator = (BinaryOperator*) operator;
+        int right = operands->pop(operands);
+        int left = operands->pop(operands);
+        return binary_operator->apply(binary_operator, left, right);
+    }
 }
 
 void delete(Token* self)
