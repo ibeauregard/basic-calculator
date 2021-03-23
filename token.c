@@ -1,6 +1,6 @@
 #include "token.h"
-#include "unary_operator.h"
-#include "binary_operator.h"
+#include "operator/unary_operator.h"
+#include "operator/binary_operator.h"
 #include <stdlib.h>
 
 static bool is_operator(Token* self);

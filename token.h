@@ -1,8 +1,8 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-#include "operator.h"
-#include "operand_stack.h"
+#include "operator/operator.h"
+#include "operand/operand_stack.h"
 #include <stdbool.h>
 
 typedef struct s_token {
