@@ -1,6 +1,17 @@
 #include "token.h"
 #include <stdlib.h>
 
+static Operator* operators[11] = {&modulo, // ascii 37
+                                  NULL, // ascii 38
+                                  NULL, // ...
+                                  NULL,
+                                  NULL,
+                                  &multiplication,
+                                  &addition,
+                                  NULL,
+                                  &subtraction,
+                                  NULL,
+                                  &division}; // ascii 47
 
 static bool is_operator(Token* self);
 static Operator* get_operator(Token* self);
@@ -27,19 +38,16 @@ bool is_operator(Token* self)
             || self->value[0] == '%');
 }
 
+static int get_operator_index(char symbol);
+
 Operator* get_operator(Token* self)
 {
-    if (self->value[0] == '+') {
-        return &addition;
-    } else if (self->value[0] == '-') {
-        return &subtraction;
-    } else if (self->value[0] == '*') {
-        return &multiplication;
-    } else if (self->value[0] == '/') {
-        return &division;
-    } else { // the token represents the modulo operator
-        return &modulo;
-    }
+    return operators[get_operator_index(self->value[0])];
+}
+
+inline int get_operator_index(char symbol)
+{
+    return symbol - '%';
 }
 
 void delete(Token* self)
