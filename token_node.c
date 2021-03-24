@@ -16,5 +16,6 @@ TokenNode* new_token_node(char* token)
 
 void delete(TokenNode* self)
 {
+    if (self->token) self->token->delete(self->token);
     free(self);
 }
