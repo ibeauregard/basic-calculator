@@ -10,6 +10,7 @@ typedef struct s_token_queue {
 
     void (*enqueue)(struct s_token_queue* self, char* token);
     Token* (*dequeue)(struct s_token_queue* self);
+    bool (*isEmpty)(struct s_token_queue* self);
     void (*delete)(struct s_token_queue* self);
 } TokenQueue;
 

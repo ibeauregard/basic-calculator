@@ -3,6 +3,7 @@
 
 static void enqueue(TokenQueue* self, char* token);
 static Token* dequeue(TokenQueue* self);
+static bool is_empty(TokenQueue* self);
 static void delete(TokenQueue* self);
 
 TokenQueue* new_token_queue()
@@ -12,12 +13,12 @@ TokenQueue* new_token_queue()
 
     self->enqueue = &enqueue;
     self->dequeue = &dequeue;
+    self->isEmpty = &is_empty;
     self->delete = &delete;
     return self;
 }
 
 TokenNode* new_token_node(char* token);
-static bool is_empty(TokenQueue* self);
 
 void enqueue(TokenQueue* self, char* token)
 {
