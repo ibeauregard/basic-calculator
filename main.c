@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
         printf("%s\n", token->value);
         token->delete(token);
     }
+    printf("Error: %d\n", parser.status);
 
     tokens->delete(tokens);
 

@@ -159,8 +159,8 @@ void handle_operator(Parser* self, char sign)
 {
     Operator* current_operator = get_operator_from_sign(sign);
     while (!self->operator_stack->isEmpty(self->operator_stack)
-            && self->operator_stack->peek(self->operator_stack)->precedence >= current_operator->precedence
-            && self->operator_stack->peek(self->operator_stack)->sign != LEFT_PAREN) {
+           && self->operator_stack->peek(self->operator_stack)->sign != LEFT_PAREN
+           && self->operator_stack->peek(self->operator_stack)->precedence >= current_operator->precedence) {
         pop_operator_stack_onto_output_queue(self);
     }
     self->operator_stack->push(self->operator_stack, current_operator);
@@ -175,7 +175,7 @@ void handle_right_parenthesis(Parser* self)
 {
     while (!self->operator_stack->isEmpty(self->operator_stack)
             && self->operator_stack->peek(self->operator_stack)->sign != LEFT_PAREN) {
-        self->operator_stack->pop(self->operator_stack);
+        pop_operator_stack_onto_output_queue(self);
     }
     if (!self->operator_stack->isEmpty(self->operator_stack)) {
         self->operator_stack->pop(self->operator_stack);
