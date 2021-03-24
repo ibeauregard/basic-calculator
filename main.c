@@ -7,8 +7,8 @@
 
 int main(int argc, char* argv[])
 {
-    if (argc <= 1) {
-        dprintf(STDERR_FILENO, "%s\n", "Required argument is missing");
+    if (argc != 2) {
+        dprintf(STDERR_FILENO, "%s\n", "my_bc takes exactly one argument");
         return EXIT_FAILURE;
     }
     Parser parser = create_parser(argv[1]);
