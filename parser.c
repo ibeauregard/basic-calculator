@@ -30,7 +30,7 @@ static char translate_operator_sign(Parser* self, char sign);
 static void handle_operator(Parser* self, char sign);
 static void handle_right_parenthesis(Parser* self);
 static void empty_operator_stack(Parser* self);
-static void delete(Parser* self);
+static void clean(Parser* self);
 
 TokenQueue* parse(Parser* self)
 {
@@ -45,13 +45,15 @@ TokenQueue* parse(Parser* self)
         } else { // token is a right parenthesis
             handle_right_parenthesis(self);
         }
+        if (self->status == EXIT_FAILURE) {
+            free(token);
+            return self->tokens;
+        }
         if (self->previous_token) free(self->previous_token);
         self->previous_token = token;
-        if (self->status == EXIT_FAILURE) return self->tokens;
     }
-    if (self->previous_token) free(self->previous_token);
     empty_operator_stack(self);
-    delete(self);
+    clean(self);
     return self->tokens;
 }
 
@@ -197,7 +199,14 @@ void empty_operator_stack(Parser* self)
     }
 }
 
-void delete(Parser* self)
+void clean(Parser* self)
 {
+    if (self->previous_token) free(self->previous_token);
     self->operator_stack->delete(self->operator_stack);
+}
+
+void handle_failure(Parser* self, char* error_message)
+{
+    dprintf(STDERR_FILENO, "%s\n", error_message);
+    clean(self);
 }
