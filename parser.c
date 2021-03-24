@@ -229,9 +229,7 @@ void clean(Parser* self)
     if (self->previous_token) free(self->previous_token);
     self->operator_stack->delete(self->operator_stack);
     if (self->status) {
-        Token* next;
-        for (Token* token = self->tokens->dequeue(self->tokens); token; token = next) {
-            next = self->tokens->dequeue(self->tokens);
+        for (Token* token = self->tokens->dequeue(self->tokens); token; token = self->tokens->dequeue(self->tokens)) {
             token->delete(token);
         }
         self->tokens->delete(self->tokens);

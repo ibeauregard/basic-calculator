@@ -6,9 +6,7 @@ int rpn_eval(TokenQueue* tokens)
 {
     OperandStack* operands = new_operand_stack();
     int result;
-    Token* next;
-    for (Token* token = tokens->dequeue(tokens); token; token = next) {
-        next = tokens->dequeue(tokens);
+    for (Token* token = tokens->dequeue(tokens); token; token = tokens->dequeue(tokens)) {
         if (token->isOperator(token)) {
             result = token->applyAsOperator(token, operands);
         } else {
