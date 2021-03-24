@@ -173,7 +173,9 @@ static void pop_operator_stack_onto_output_queue(Parser* self);
 
 void handle_operator(Parser* self, char sign)
 {
-    if (sign != MINUS_SIGN && !token_is_operand(self->previous_token)) {
+    if (sign != MINUS_SIGN
+            && !token_is_operand(self->previous_token)
+            && !token_is_closing_parenthesis(self->previous_token)) {
         dprintf(STDERR_FILENO, "Parse error: Operator %c missing left operand\n", sign);
         self->status = EXIT_FAILURE;
         return;
