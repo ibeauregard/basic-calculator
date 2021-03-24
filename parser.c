@@ -53,7 +53,7 @@ TokenQueue* parse(Parser* self)
         dprintf(STDERR_FILENO, "Parse error: Operator %c missing right operand\n", self->previous_token[0]);
         self->status = EXIT_FAILURE;
     }
-    empty_operator_stack(self);
+    if (!self->status) empty_operator_stack(self);
     clean(self);
     return self->tokens;
 }
@@ -121,7 +121,7 @@ static bool char_is_parenthesis(char c);
 
 inline bool char_is_invalid(char c)
 {
-    return !char_is_operator(c) && !char_is_parenthesis(c);
+    return c == MINUS_SIGN || (!char_is_operator(c) && !char_is_parenthesis(c));
 }
 
 inline bool char_is_parenthesis(char c)
@@ -228,4 +228,12 @@ void clean(Parser* self)
 {
     if (self->previous_token) free(self->previous_token);
     self->operator_stack->delete(self->operator_stack);
+    if (self->status) {
+        Token* next;
+        for (Token* token = self->tokens->dequeue(self->tokens); token; token = next) {
+            next = self->tokens->dequeue(self->tokens);
+            token->delete(token);
+        }
+        self->tokens->delete(self->tokens);
+    }
 }
