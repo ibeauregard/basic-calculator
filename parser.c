@@ -29,6 +29,7 @@ static void handle_operand(Parser* self, char* token);
 static bool token_is_operator(char* token);
 static char translate_operator_sign(Parser* self, char sign);
 static void handle_operator(Parser* self, char sign);
+static void handle_left_parenthesis(Parser* self);
 static void handle_right_parenthesis(Parser* self);
 static void empty_operator_stack(Parser* self);
 static void clean(Parser* self);
@@ -42,7 +43,7 @@ TokenQueue* parse(Parser* self)
         } else if (token_is_operator(token)) {
             handle_operator(self, translate_operator_sign(self, token[0]));
         } else if (token[0] == LEFT_PAREN) {
-            self->operator_stack->push(self->operator_stack, get_operator_from_sign(LEFT_PAREN));
+            handle_left_parenthesis(self);
         } else { // token is a right parenthesis
             handle_right_parenthesis(self);
         }
@@ -134,10 +135,17 @@ inline bool token_is_operand(char* token)
     return token && char_is_digit(token[0]);
 }
 
+static bool token_is_right_parenthesis(char* token);
+
 void handle_operand(Parser* self, char* token)
 {
     if (token_is_operand(self->previous_token)) {
         dprintf(STDERR_FILENO, "Parse error: Two consecutive operands: %s and %s\n", self->previous_token, token);
+        self->status = EXIT_FAILURE;
+        return;
+    }
+    if (token_is_right_parenthesis(self->previous_token)) {
+        dprintf(STDERR_FILENO, "%s\n", "Parse error: Invalid token after closing parenthesis");
         self->status = EXIT_FAILURE;
         return;
     }
@@ -149,19 +157,17 @@ inline bool token_is_operator(char* token)
     return token && char_is_operator(token[0]);
 }
 
-static bool token_is_closing_parenthesis(char* token);
-
 char translate_operator_sign(Parser* self, char sign)
 {
     if (sign != '-') return sign;
-    if (token_is_operand(self->previous_token) || token_is_closing_parenthesis(self->previous_token)) {
+    if (token_is_operand(self->previous_token) || token_is_right_parenthesis(self->previous_token)) {
         return SUB_SIGN;
     } else {
         return MINUS_SIGN;
     }
 }
 
-inline bool token_is_closing_parenthesis(char* token)
+inline bool token_is_right_parenthesis(char* token)
 {
     return token && token[0] == RIGHT_PAREN;
 }
@@ -172,7 +178,7 @@ void handle_operator(Parser* self, char sign)
 {
     if (sign != MINUS_SIGN
             && !token_is_operand(self->previous_token)
-            && !token_is_closing_parenthesis(self->previous_token)) {
+            && !token_is_right_parenthesis(self->previous_token)) {
         dprintf(STDERR_FILENO, "Parse error: Operator %c missing left operand\n", sign);
         self->status = EXIT_FAILURE;
         return;
@@ -193,10 +199,28 @@ inline void pop_operator_stack_onto_output_queue(Parser* self)
     self->tokens->enqueue(self->tokens, (char []) {self->operator_stack->pop(self->operator_stack)->sign, 0});
 }
 
+void handle_left_parenthesis(Parser* self)
+{
+    if (token_is_right_parenthesis(self->previous_token)
+        || token_is_operand(self->previous_token)) {
+        dprintf(STDERR_FILENO, "%s\n", "Parse error: Invalid token before opening parenthesis");
+        self->status = EXIT_FAILURE;
+        return;
+    }
+    self->operator_stack->push(self->operator_stack, get_operator_from_sign(LEFT_PAREN));
+}
+
+static bool token_is_left_parenthesis(char* token);
+
 void handle_right_parenthesis(Parser* self)
 {
     if (token_is_operator(self->previous_token)) {
         dprintf(STDERR_FILENO, "Parse error: Operator %c missing right operand\n", self->previous_token[0]);
+        self->status = EXIT_FAILURE;
+        return;
+    }
+    if (token_is_left_parenthesis(self->previous_token)) {
+        dprintf(STDERR_FILENO, "%s\n", "Parse error: Empty pair of parentheses");
         self->status = EXIT_FAILURE;
         return;
     }
@@ -210,6 +234,11 @@ void handle_right_parenthesis(Parser* self)
         dprintf(STDERR_FILENO, "%s\n", "Parse error: Mismatched closing parenthesis");
         self->status = EXIT_FAILURE;
     }
+}
+
+inline bool token_is_left_parenthesis(char* token)
+{
+    return token && token[0] == LEFT_PAREN;
 }
 
 void empty_operator_stack(Parser* self)
