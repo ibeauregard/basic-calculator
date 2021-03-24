@@ -49,14 +49,11 @@ TokenQueue* parse(Parser* self)
         if (self->previous_token) free(self->previous_token);
         self->previous_token = token;
     }
-    if (!self->status) {
-        if (token_is_operator(self->previous_token)) {
-            dprintf(STDERR_FILENO, "Parse error: Operator %c missing right operand\n", self->previous_token[0]);
-            self->status = EXIT_FAILURE;
-        } else {
-            empty_operator_stack(self);
-        }
+    if (!self->status && token_is_operator(self->previous_token)) {
+        dprintf(STDERR_FILENO, "Parse error: Operator %c missing right operand\n", self->previous_token[0]);
+        self->status = EXIT_FAILURE;
     }
+    empty_operator_stack(self);
     clean(self);
     return self->tokens;
 }
