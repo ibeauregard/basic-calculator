@@ -11,6 +11,6 @@ typedef struct s_operator {
 } Operator;
 
 Operator* get_operator_from_sign(char sign);
-bool token_is_operator(char token);
+bool char_is_operator(char token);
 
 #endif

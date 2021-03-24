@@ -7,5 +7,7 @@
 #define DIV_SIGN '/'
 #define MOD_SIGN '%'
 #define MINUS_SIGN '&'
+#define LEFT_PAREN '('
+#define RIGHT_PAREN ')'
 
 #endif

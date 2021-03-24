@@ -24,7 +24,7 @@ Token* new_token(char* value)
 
 bool is_operator(Token* self)
 {
-    return token_is_operator(self->value[0]);
+    return char_is_operator(self->value[0]);
 }
 
 int apply_as_operator(Token* self, OperandStack* operands)

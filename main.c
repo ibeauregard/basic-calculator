@@ -1,21 +1,26 @@
+#include "parser.h"
 #include "token_queue.h"
-#include "rpn_eval.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 int main(int argc, char* argv[])
 {
-    if (argc > 1) {
-        printf("%s\n", argv[1]);
+    if (argc <= 1) {
+        return EXIT_FAILURE;
     }
-    TokenQueue* tokens = new_token_queue();
-    tokens->enqueue(tokens, "39");
-    tokens->enqueue(tokens, "&");
-    tokens->enqueue(tokens, "2");
-    tokens->enqueue(tokens, "-");
 
-    printf("%d\n", rpn_eval(tokens));
+    Parser parser = create_parser(argv[1]);
+    TokenQueue* tokens = parser.parse(&parser);
+
+    Token* next;
+    for (Token* token = tokens->dequeue(tokens); token; token = next) {
+        next = tokens->dequeue(tokens);
+        printf("%s\n", token->value);
+        token->delete(token);
+    }
 
     tokens->delete(tokens);
+
+
     return EXIT_SUCCESS;
 }

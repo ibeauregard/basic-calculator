@@ -12,7 +12,7 @@ static Operator addition = {
 };
 
 static Operator subtraction = {
-        .sign = MINUS_SIGN,
+        .sign = SUB_SIGN,
         .precedence = 1,
         .apply = &subtraction_func,
         .isUnary = false
@@ -46,11 +46,19 @@ static Operator minus = {
         .isUnary = true
 };
 
+static Operator left_parenthesis = {
+        .sign = LEFT_PAREN
+};
+
+static Operator right_parenthesis = {
+        .sign = RIGHT_PAREN
+};
+
 static Operator* operators[] = {&modulo, // ascii 37
                                   &minus, // ascii 38
                                   NULL, // ...
-                                  NULL,
-                                  NULL,
+                                  &left_parenthesis,
+                                  &right_parenthesis,
                                   &multiplication,
                                   &addition,
                                   NULL,
@@ -71,12 +79,12 @@ inline unsigned char get_operator_index(char sign)
     return sign - MOD_SIGN;
 }
 
-bool token_is_operator(char token)
+inline bool char_is_operator(char c)
 {
-    return (token == ADD_SIGN
-            || token == SUB_SIGN
-            || token == MUL_SIGN
-            || token == DIV_SIGN
-            || token == MOD_SIGN
-            || token == MINUS_SIGN);
+    return (c == ADD_SIGN
+            || c == SUB_SIGN
+            || c == MUL_SIGN
+            || c == DIV_SIGN
+            || c == MOD_SIGN
+            || c == MINUS_SIGN);
 }
