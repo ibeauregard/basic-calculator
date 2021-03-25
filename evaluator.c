@@ -2,7 +2,12 @@
 #include "operand/operand_stack.h"
 #include "my_libc/_atoi.h"
 
-int rpn_eval(TokenQueue* tokens)
+/***
+ * @param tokens: A data structure holding the tokens in reverse-polish notation order
+ *                  (see https://en.wikipedia.org/wiki/Reverse_Polish_notation)
+ * @return The value of the expression represented by the input parameter
+ */
+int eval(TokenQueue* tokens)
 {
     OperandStack* operands = new_operand_stack();
     int result;

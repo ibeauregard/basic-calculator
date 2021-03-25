@@ -3,6 +3,6 @@
 
 #include "token_queue.h"
 
-int rpn_eval(TokenQueue* tokens);
+int eval(TokenQueue* tokens);
 
 #endif

@@ -34,6 +34,11 @@ static void handle_right_parenthesis(Parser* self);
 static void empty_operator_stack(Parser* self);
 static void clean(Parser* self);
 
+/***
+ * This function implements the Shunting-Yard algorithm (see https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
+ * The output is a structure holding the tokens
+ * in Reverse Polish Notation (https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+ */
 TokenQueue* parse(Parser* self)
 {
     char* token;

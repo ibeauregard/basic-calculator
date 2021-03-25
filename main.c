@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     Parser parser = create_parser(argv[1]);
     TokenQueue* tokens = parser.parse(&parser);
     if (parser.status) return EXIT_FAILURE;
-    if (!tokens->isEmpty(tokens)) printf("%d\n", rpn_eval(tokens));
+    if (!tokens->isEmpty(tokens)) printf("%d\n", eval(tokens));
     tokens->delete(tokens);
     return EXIT_SUCCESS;
 }
