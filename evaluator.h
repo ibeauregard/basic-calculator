@@ -1,5 +1,5 @@
-#ifndef RPN_EVAL_H
-#define RPN_EVAL_H
+#ifndef EVALUATOR_H
+#define EVALUATOR_H
 
 #include "token_queue.h"
 

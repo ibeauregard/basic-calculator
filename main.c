@@ -1,6 +1,6 @@
 #include "parser.h"
 #include "token_queue.h"
-#include "rpn_eval.h"
+#include "evaluator.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
