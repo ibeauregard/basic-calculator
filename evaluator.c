@@ -7,13 +7,13 @@
  *                  (see https://en.wikipedia.org/wiki/Reverse_Polish_notation)
  * @return The value of the expression represented by the input parameter
  */
-int eval(TokenQueue* tokens)
+int eval(TokenQueue* tokens, int* error)
 {
     OperandStack* operands = new_operand_stack();
     int result;
     for (Token* token = tokens->dequeue(tokens); token; token = tokens->dequeue(tokens)) {
         if (token->isOperator(token)) {
-            result = token->applyAsOperator(token, operands);
+            result = token->applyAsOperator(token, operands, error);
         } else {
             result = _atoi(token->value);
         }

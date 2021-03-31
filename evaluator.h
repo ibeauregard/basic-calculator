@@ -3,6 +3,6 @@
 
 #include "token_queue.h"
 
-int eval(TokenQueue* tokens);
+int eval(TokenQueue* tokens, int* error);
 
 #endif

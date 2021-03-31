@@ -10,7 +10,7 @@ typedef struct s_token {
     struct s_token* next;
 
     bool (*isOperator)(struct s_token* self);
-    int (*applyAsOperator)(struct s_token* self, OperandStack* operands);
+    int (*applyAsOperator)(struct s_token* self, OperandStack* operands, int* error);
     void (*delete)(struct s_token* self);
 } Token;
 
