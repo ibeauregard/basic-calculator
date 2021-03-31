@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 static bool is_operator(Token* self);
-static int apply_as_operator(Token* self, OperandStack* operands);
+static int apply_as_operator(Token* self, OperandStack* operands, int* error);
 static void delete(Token* self);
 
 Token* new_token(char* value)
@@ -27,7 +27,7 @@ bool is_operator(Token* self)
     return char_is_operator(self->value[0]);
 }
 
-int apply_as_operator(Token* self, OperandStack* operands)
+int apply_as_operator(Token* self, OperandStack* operands, int* error)
 {
     Operator* operator = get_operator_from_sign(self->value[0]);
     if (operator->isUnary) {
@@ -37,7 +37,7 @@ int apply_as_operator(Token* self, OperandStack* operands)
         BinaryOperator* binary_operator = (BinaryOperator*) operator;
         int right = operands->pop(operands);
         int left = operands->pop(operands);
-        return binary_operator->apply(left, right);
+        return binary_operator->apply(left, right, error);
     }
 }
 
