@@ -15,7 +15,7 @@ A valid expression:
 - can contain parentheses, but each group must be properly closed
 - can contain spaces
 
-This program uses whole number arithmetic: divisions are euclidean keeping only the quotient, while the remainder can be obtained with a modulo operation.
+This program uses whole number arithmetic: divisions are euclidean, keeping only the quotient, while the remainder can be obtained with a modulo operation.
 
 ## Implementation notes
 
