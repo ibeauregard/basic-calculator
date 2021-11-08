@@ -140,7 +140,7 @@ inline bool token_is_operand(char* token)
     return token && char_is_digit(token[0]);
 }
 
-static bool token_is_right_parenthesis(char* token);
+static bool token_is_right_parenthesis(const char* token);
 
 void handle_operand(Parser* self, char* token)
 {
@@ -172,7 +172,7 @@ char translate_operator_sign(Parser* self, char sign)
     }
 }
 
-inline bool token_is_right_parenthesis(char* token)
+inline bool token_is_right_parenthesis(const char* token)
 {
     return token && token[0] == RIGHT_PAREN;
 }
@@ -215,7 +215,7 @@ void handle_left_parenthesis(Parser* self)
     self->operator_stack->push(self->operator_stack, get_operator_from_sign(LEFT_PAREN));
 }
 
-static bool token_is_left_parenthesis(char* token);
+static bool token_is_left_parenthesis(const char* token);
 
 void handle_right_parenthesis(Parser* self)
 {
@@ -241,7 +241,7 @@ void handle_right_parenthesis(Parser* self)
     }
 }
 
-inline bool token_is_left_parenthesis(char* token)
+inline bool token_is_left_parenthesis(const char* token)
 {
     return token && token[0] == LEFT_PAREN;
 }
