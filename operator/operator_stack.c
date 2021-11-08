@@ -41,7 +41,7 @@ inline Operator* peek(OperatorStack* self)
     return self->top->op;
 }
 
-bool is_empty(OperatorStack * self)
+inline bool is_empty(OperatorStack* self)
 {
     return self->top == NULL;
 }
